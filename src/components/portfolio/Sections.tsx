@@ -24,8 +24,8 @@ import {
 } from "@/data/portfolio";
 import projectImg from "@/assets/project-house.jpg";
 
-const skillIcons = [Binary, BrainCircuit, Code2, Layers];
-const serviceIcons = [BrainCircuit, Sparkles, Database, Plug, Code2];
+const skillIcons = [Binary, BrainCircuit, Code2, Layers] as const;
+const serviceIcons = [BrainCircuit, Sparkles, Database, Plug, Code2] as const;
 
 function Badge({ children }: { children: React.ReactNode }) {
   return (
@@ -94,7 +94,7 @@ export function Skills() {
         />
         <div className="mt-12 grid gap-5 md:grid-cols-2">
           {SKILL_GROUPS.map((group, i) => {
-            const Icon = skillIcons[i % skillIcons.length];
+            const Icon = skillIcons[i % skillIcons.length]!;
             return (
               <Reveal key={group.title} delay={i * 80}>
                 <article className="surface-card surface-card-hover h-full p-6">
@@ -222,7 +222,7 @@ export function Services() {
       />
       <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {SERVICES.map((service, i) => {
-          const Icon = serviceIcons[i % serviceIcons.length];
+          const Icon = serviceIcons[i % serviceIcons.length]!;
           return (
             <Reveal key={service.title} delay={i * 70}>
               <article className="surface-card surface-card-hover group h-full p-6">
