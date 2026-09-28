@@ -1,8 +1,13 @@
 import { useState } from "react";
+import emailjs from "@emailjs/browser";
 import { Linkedin, Mail, MapPin, Phone, Send } from "lucide-react";
 import { toast } from "sonner";
 import { Reveal, SectionHeading } from "./Reveal";
 import { PROFILE } from "@/data/portfolio";
+
+const EMAILJS_SERVICE_ID = "service_7fek9fa";
+const EMAILJS_TEMPLATE_ID = "template_5abkbuq";
+const EMAILJS_PUBLIC_KEY = "sx3AVsFjV2yxPLAen";
 
 const fieldClass =
   "w-full rounded-xl border border-input bg-card px-4 py-3 text-sm text-foreground outline-none transition-colors placeholder:text-muted-foreground focus:border-primary focus:ring-2 focus:ring-ring/25";
@@ -10,23 +15,32 @@ const fieldClass =
 export function Contact() {
   const [sending, setSending] = useState(false);
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const form = e.currentTarget;
     const data = new FormData(form);
-    const name = String(data.get("name") ?? "");
-    const email = String(data.get("email") ?? "");
-    const subject = String(data.get("subject") ?? "");
-    const message = String(data.get("message") ?? "");
+    const templateParams = {
+      from_name: String(data.get("name") ?? ""),
+      reply_to: String(data.get("email") ?? ""),
+      from_email: String(data.get("email") ?? ""),
+      subject: String(data.get("subject") ?? ""),
+      message: String(data.get("message") ?? ""),
+      to_name: PROFILE.name,
+    };
 
     setSending(true);
-    const body = `Name: ${name}\nEmail: ${email}\n\n${message}`;
-    window.location.href = `mailto:${PROFILE.email}?subject=${encodeURIComponent(
-      subject,
-    )}&body=${encodeURIComponent(body)}`;
-    toast.success("Opening your email app with the message ready to send.");
-    setSending(false);
-    form.reset();
+    try {
+      await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams, {
+        publicKey: EMAILJS_PUBLIC_KEY,
+      });
+      toast.success("Message sent! I'll get back to you soon.");
+      form.reset();
+    } catch (err) {
+      console.error("EmailJS send failed:", err);
+      toast.error("Couldn't send the message. Please try again, or email me directly.");
+    } finally {
+      setSending(false);
+    }
   }
 
   const details = [
@@ -127,10 +141,19 @@ export function Contact() {
             <button
               type="submit"
               disabled={sending}
-              className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-gradient-brand px-6 py-3 text-sm font-medium text-primary-foreground transition-transform duration-300 hover:-translate-y-0.5 disabled:opacity-60 sm:w-auto"
+              className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-gradient-brand px-6 py-3 text-sm font-medium text-primary-foreground transition-transform duration-300 hover:-translate-y-0.5 disabled:opacity-60 disabled:hover:translate-y-0 sm:w-auto"
             >
-              <Send className="size-4" />
-              Send Message
+              {sending ? (
+                <>
+                  <span className="size-4 animate-spin rounded-full border-2 border-current border-t-transparent" />
+                  Sending...
+                </>
+              ) : (
+                <>
+                  <Send className="size-4" />
+                  Send Message
+                </>
+              )}
             </button>
           </form>
         </Reveal>
