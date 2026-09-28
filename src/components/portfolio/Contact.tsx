@@ -141,10 +141,19 @@ export function Contact() {
             <button
               type="submit"
               disabled={sending}
-              className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-gradient-brand px-6 py-3 text-sm font-medium text-primary-foreground transition-transform duration-300 hover:-translate-y-0.5 disabled:opacity-60 sm:w-auto"
+              className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-gradient-brand px-6 py-3 text-sm font-medium text-primary-foreground transition-transform duration-300 hover:-translate-y-0.5 disabled:opacity-60 disabled:hover:translate-y-0 sm:w-auto"
             >
-              <Send className="size-4" />
-              Send Message
+              {sending ? (
+                <>
+                  <span className="size-4 animate-spin rounded-full border-2 border-current border-t-transparent" />
+                  Sending...
+                </>
+              ) : (
+                <>
+                  <Send className="size-4" />
+                  Send Message
+                </>
+              )}
             </button>
           </form>
         </Reveal>
