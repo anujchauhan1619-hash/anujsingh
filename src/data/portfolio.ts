@@ -6,7 +6,7 @@ export const PROFILE = {
     "Final-year B.Tech CSE (Data Science) student actively pursuing entry-level SDE opportunities, with strengths in analytical thinking, algorithms, software development, and machine learning.",
   about:
     "Final-year B.Tech CS student passionate about problem-solving, algorithms and exploring practical applications in machine learning. I'm actively pursuing opportunities as an entry-level Software Development Engineer (SDE) where I can contribute to high-impact work through analytical thinking and technical skills in developing reliable, scalable products.",
-  email: "anujchauhan119@gmail.com",
+  email: "anujchauhan1619@gmail.com",
   phone: "8957949676",
   linkedin: "https://www.linkedin.com/in/anuj-singh-chauhan-88a2322b7",
   location: "Ghaziabad, India",
