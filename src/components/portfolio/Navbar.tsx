@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { PROFILE, SECTIONS } from "@/data/portfolio";
+import { SECTIONS } from "@/data/portfolio";
+import { ThemeToggle } from "./ThemeToggle";
 
 // SSR-safe layout effect (React warns on useLayoutEffect during SSR).
 const useIsoLayoutEffect = typeof window !== "undefined" ? useLayoutEffect : useEffect;
@@ -113,6 +114,7 @@ export function Navbar() {
         </ul>
 
         <div className="flex shrink-0 items-center gap-2">
+          <ThemeToggle />
           <a
             href="#contact"
             className="hidden rounded-full bg-accent px-4 py-2 text-sm font-medium text-accent-foreground transition-transform duration-300 hover:-translate-y-0.5 sm:inline-flex"

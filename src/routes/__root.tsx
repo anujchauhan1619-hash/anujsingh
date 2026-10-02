@@ -116,11 +116,18 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
   errorComponent: ErrorComponent,
 });
 
+// Applies the saved (or system-preferred) theme before first paint to avoid a
+// flash of the wrong theme. Dark is the default; only light needs the class.
+const noFlashTheme = `(function(){try{var s=localStorage.getItem('theme');var m=window.matchMedia('(prefers-color-scheme: light)').matches;if(s==='light'||(!s&&m)){document.documentElement.classList.add('light');}}catch(e){}})();`;
+
 function RootShell({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
+    // The no-flash script toggles `.light` on <html> before hydration, so the
+    // server/client className differs by design — suppress that one warning.
+    <html lang="en" suppressHydrationWarning>
       <head>
         <HeadContent />
+        <script dangerouslySetInnerHTML={{ __html: noFlashTheme }} />
       </head>
       <body>
         {children}
