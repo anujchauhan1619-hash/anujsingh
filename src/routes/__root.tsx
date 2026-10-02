@@ -11,7 +11,13 @@ import { useEffect, type ReactNode } from "react";
 
 import { Toaster } from "@/components/ui/sonner";
 import appCss from "../styles.css?url";
+// ?url imports resolve to the base-correct, fingerprinted asset paths at build
+// time, so font preloads work under any Vite `base` (incl. GitHub project pages).
+import instrumentSerifUrl from "@/assets/fonts/instrument-serif-latin-400-normal.woff2?url";
+import geistUrl from "@/assets/fonts/geist-latin-wght-normal.woff2?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+
+const faviconHref = `${import.meta.env.BASE_URL}favicon.ico`;
 
 function NotFoundComponent() {
   return (
@@ -78,14 +84,15 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "Anuj Singh Chauhan" },
+      {
+        name: "description",
+        content:
+          "Anuj Singh Chauhan — final-year B.Tech CSE (Data Science) student and aspiring SDE building scalable software and intelligent AI solutions.",
+      },
+      { name: "author", content: "Anuj Singh Chauhan" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:site", content: "@Lovable" },
     ],
     links: [
       {
@@ -97,17 +104,17 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         rel: "preload",
         as: "font",
         type: "font/woff2",
-        href: "/fonts/instrument-serif-latin-400-normal.woff2",
+        href: instrumentSerifUrl,
         crossOrigin: "anonymous",
       },
       {
         rel: "preload",
         as: "font",
         type: "font/woff2",
-        href: "/fonts/geist-latin-wght-normal.woff2",
+        href: geistUrl,
         crossOrigin: "anonymous",
       },
-      { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
+      { rel: "icon", href: faviconHref, type: "image/x-icon" },
     ],
   }),
   shellComponent: RootShell,
