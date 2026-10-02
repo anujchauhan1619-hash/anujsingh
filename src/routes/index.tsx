@@ -32,6 +32,7 @@ export const Route = createFileRoute("/")({
 function Index() {
   return (
     <div className="min-h-screen">
+      <div className="grain" aria-hidden="true" />
       <Navbar />
       <main>
         <Hero />
