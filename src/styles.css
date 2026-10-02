@@ -351,11 +351,21 @@
     border-color: var(--border-strong);
   }
 }
+/* Near-solid, strongly blurred panel (mobile menu) so page content behind it
+   stays unreadable — the 62% glass-nav is too sheer for a large panel. */
 @utility glass-panel {
-  background-color: color-mix(in oklab, var(--background) 62%, transparent);
-  backdrop-filter: saturate(150%) blur(14px);
-  -webkit-backdrop-filter: saturate(150%) blur(14px);
+  background-color: color-mix(in oklab, var(--background) 96%, transparent);
+  backdrop-filter: saturate(160%) blur(24px);
+  -webkit-backdrop-filter: saturate(160%) blur(24px);
   border: 1px solid var(--border);
+  box-shadow: 0 16px 48px rgb(0 0 0 / 0.45);
+}
+
+/* Fallback: if backdrop-filter isn't supported, make the panel fully opaque. */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .glass-panel {
+    background-color: var(--background);
+  }
 }
 @utility reveal {
   opacity: 0;

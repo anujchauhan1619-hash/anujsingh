@@ -135,7 +135,7 @@ export function Hero() {
 
         {/* ---------------- Right: portrait ---------------- */}
         <div
-          className="anim-fade-up relative mx-auto w-full max-w-xs lg:mx-0"
+          className="anim-fade-up relative mx-auto w-full max-w-xs"
           style={{ animationDelay: "0.4s" }}
         >
           {/* offset outlined frame — editorial depth without glow */}
@@ -148,15 +148,15 @@ export function Hero() {
               <img
                 src={profileImg}
                 alt="Portrait of Anuj Singh Chauhan"
-                width={816}
-                height={816}
+                width={600}
+                height={800}
                 fetchPriority="high"
-                className="aspect-square w-full object-cover transition-all duration-700 ease-[var(--ease-brand)] md:grayscale md:hover:grayscale-0"
+                className="aspect-3/4 w-full object-cover object-center transition-all duration-700 ease-[var(--ease-brand)] md:grayscale md:hover:grayscale-0"
               />
             </div>
-            <figcaption className="label-mono mt-3 flex items-center justify-between">
-              <span className="text-foreground">Anuj Singh Chauhan</span>
-              <span>{PROFILE.location.split(",")[0]} · IN</span>
+            <figcaption className="label-mono mt-4 flex flex-wrap items-center justify-between gap-x-3 gap-y-1">
+              <span className="whitespace-nowrap text-foreground">Anuj Singh Chauhan</span>
+              <span className="whitespace-nowrap">{PROFILE.location.split(",")[0]} · IN</span>
             </figcaption>
           </figure>
         </div>

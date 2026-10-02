@@ -18,6 +18,7 @@ import geistUrl from "@/assets/fonts/geist-latin-wght-normal.woff2?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 
 const faviconHref = `${import.meta.env.BASE_URL}favicon.ico`;
+const faviconSvgHref = `${import.meta.env.BASE_URL}favicon.svg`;
 
 function NotFoundComponent() {
   return (
@@ -114,6 +115,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         href: geistUrl,
         crossOrigin: "anonymous",
       },
+      { rel: "icon", href: faviconSvgHref, type: "image/svg+xml" },
       { rel: "icon", href: faviconHref, type: "image/x-icon" },
     ],
   }),

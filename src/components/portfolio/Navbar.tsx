@@ -134,7 +134,7 @@ export function Navbar() {
       </nav>
 
       {open ? (
-        <div className="glass-nav absolute inset-x-4 top-[4.5rem] rounded-2xl p-2 lg:hidden">
+        <div className="glass-panel absolute inset-x-4 top-[4.5rem] rounded-2xl p-2 lg:hidden">
           <ul className="grid gap-0.5">
             {SECTIONS.map((s) => (
               <li key={s.id}>
