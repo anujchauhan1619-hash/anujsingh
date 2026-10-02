@@ -8,9 +8,11 @@ import { PROFILE } from "@/data/portfolio";
 // EmailJS config. These are *publishable* client-side identifiers (they ship in
 // the browser bundle either way), so env vars are for clean config, not secrecy.
 // Values fall back to the existing project so the form works without a .env.
-const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID ?? "service_7fek9fa";
-const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID ?? "template_5abkbuq";
-const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY ?? "sx3AVsFjV2yxPLAen";
+// NB: use `||`, not `??` — CI injects unset secrets as empty strings (""), and
+// `?? "fallback"` would keep the "" and ship empty credentials, breaking the form.
+const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID || "service_7fek9fa";
+const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || "template_5abkbuq";
+const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || "sx3AVsFjV2yxPLAen";
 
 const fieldClass =
   "w-full rounded-xl border border-input bg-card px-4 py-3 text-sm text-foreground outline-none transition-colors placeholder:text-muted-foreground focus:border-primary focus:ring-2 focus:ring-ring/25";
