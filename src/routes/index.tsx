@@ -1,7 +1,14 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Navbar } from "@/components/portfolio/Navbar";
 import { Hero } from "@/components/portfolio/Hero";
-import { About, Education, Experience, Projects, Services, Skills } from "@/components/portfolio/Sections";
+import {
+  About,
+  Education,
+  Experience,
+  Projects,
+  Services,
+  Skills,
+} from "@/components/portfolio/Sections";
 import { Contact, Footer } from "@/components/portfolio/Contact";
 
 const title = "Anuj Singh Chauhan | Software Developer & AI/ML Enthusiast";
@@ -25,6 +32,7 @@ export const Route = createFileRoute("/")({
 function Index() {
   return (
     <div className="min-h-screen">
+      <div className="grain" aria-hidden="true" />
       <Navbar />
       <main>
         <Hero />

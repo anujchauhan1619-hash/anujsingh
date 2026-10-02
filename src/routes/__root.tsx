@@ -92,11 +92,20 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         rel: "stylesheet",
         href: appCss,
       },
-      { rel: "preconnect", href: "https://fonts.googleapis.com" },
-      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
+      // Preload above-the-fold self-hosted fonts (display + body) to cut FOUT/CLS.
       {
-        rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap",
+        rel: "preload",
+        as: "font",
+        type: "font/woff2",
+        href: "/fonts/instrument-serif-latin-400-normal.woff2",
+        crossOrigin: "anonymous",
+      },
+      {
+        rel: "preload",
+        as: "font",
+        type: "font/woff2",
+        href: "/fonts/geist-latin-wght-normal.woff2",
+        crossOrigin: "anonymous",
       },
       { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
     ],
@@ -107,11 +116,18 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
   errorComponent: ErrorComponent,
 });
 
+// Applies the saved (or system-preferred) theme before first paint to avoid a
+// flash of the wrong theme. Dark is the default; only light needs the class.
+const noFlashTheme = `(function(){try{var s=localStorage.getItem('theme');var m=window.matchMedia('(prefers-color-scheme: light)').matches;if(s==='light'||(!s&&m)){document.documentElement.classList.add('light');}}catch(e){}})();`;
+
 function RootShell({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
+    // The no-flash script toggles `.light` on <html> before hydration, so the
+    // server/client className differs by design — suppress that one warning.
+    <html lang="en" suppressHydrationWarning>
       <head>
         <HeadContent />
+        <script dangerouslySetInnerHTML={{ __html: noFlashTheme }} />
       </head>
       <body>
         {children}
